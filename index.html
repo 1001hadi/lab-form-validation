@@ -28,10 +28,11 @@
             required
             minlength="4"
             pattern="^(?:([a-zA-Z0-9])(?!\\1)(?:.*\\2.*)?){2,}$"
+            title="username must be 4 or more characters include two unique characters and no white space or special characters. "
           />
           <span class="input-icon"><i class="fa-solid fa-user"></i></span><br />
 
-          <input name="email" type="email" placeholder="Email" />
+          <input name="email" type="email" placeholder="Email" required />
           <span class="input-icon"><i class="fa-solid fa-envelope"></i></span
           ><br />
 
@@ -40,6 +41,7 @@
             type="password"
             placeholder="Password"
             minlength="12"
+            required
           />
           <span class="input-icon"><i class="fa-solid fa-key"></i></span><br />
 
@@ -48,6 +50,7 @@
             type="password"
             placeholder="Repeat Password"
             minlength="12"
+            required
           />
           <span class="input-icon"><i class="fa-solid fa-key"></i></span
           ><br /><br />
