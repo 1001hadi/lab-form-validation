@@ -33,3 +33,11 @@ function clearInputsField(form) {
     checkBox.checked = false;
   });
 }
+
+// add eventListener to the registration and start validating
+// get the username, email, password and term of condition values in the variables
+// start with user validation
+// then email validation
+// then password validation
+// term of condition validation
+// make sure store the data in local storage after validating them
