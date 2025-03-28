@@ -10,3 +10,11 @@ function displayErr(errMsg) {
   showErr.textContent = errMsg;
   showErr.style.color = "red";
 }
+
+// display success helper
+function displaySuccess(successMsg) {
+  showErr.textContent = successMsg;
+  showErr.style.color = "green";
+}
+
+
