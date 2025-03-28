@@ -17,4 +17,19 @@ function displaySuccess(successMsg) {
   showErr.style.color = "green";
 }
 
+// Clearing inputs field helper
+// this part build with hint from stack Overflow;
+function clearInputsField(form) {
+  form
+    .querySelectorAll(
+      `input[type="text"], input[type="email"], input[type="password"]`
+    )
+    .forEach((input) => {
+      input.value = "";
+      //   onfocus = "this.value= ''";
+    });
 
+  form.querySelectorAll(`input[type="checkbox"]`).forEach((checkBox) => {
+    checkBox.checked = false;
+  });
+}
