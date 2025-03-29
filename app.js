@@ -47,19 +47,17 @@ function userNameValidation(username) {
 
   //check the local storage for existed username.
   const users = JSON.parse(localStorage.getItem("users") || "[]");
-  if (users.some((user) => user.username === username.toLowerCase())) {
-    return "That username is already taken.";
+  let existUsername = false;
+
+  for (let user of users) {
+    if (user.username === username.toLowerCase()) {
+      existUsername = true;
+      break;
+    }
   }
-  // let existUsername = false;
-  // for (let user of users) {
-  //   if (user.username === username.toLowerCase()) {
-  //     existUsername = true;
-  //     break;
-  //   }
-  // }
-  // if (existUsername) {
-  //   return "Username you choice already existed!";
-  // }
+  if (existUsername) {
+    return "Username you choice already existed!";
+  }
 
   return;
 }
@@ -132,12 +130,23 @@ registerForm.addEventListener("submit", (e) => {
     password !== repeatPassword && "Passwords must match!";
 
   if (usernameErr || emailErr || passwordErr || termsErr || repeatPasswordErr) {
-    if (usernameErr) displayErr(usernameErr, registerForm.username);
-    else if (emailErr) displayErr(emailErr, registerForm.email);
-    else if (passwordErr) displayErr(passwordErr, registerForm.password);
-    else if (termsErr) displayErr(termsErr, registerForm.terms);
-    else if (repeatPasswordErr)
-      displayErr(repeatPasswordErr, registerForm.passwordCheck);
+    switch (true) {
+      case !!usernameErr:
+        displayErr(usernameErr, registerForm.username);
+        break;
+      case !!emailErr:
+        displayErr(emailErr, registerForm.email);
+        break;
+      case !!passwordErr:
+        displayErr(passwordErr, registerForm.password);
+        break;
+      case !!termsErr:
+        displayErr(termsErr, registerForm.terms);
+        break;
+      case !!repeatPasswordErr:
+        displayErr(repeatPasswordErr, registerForm.passwordCheck);
+        break;
+    }
     return;
   }
 
