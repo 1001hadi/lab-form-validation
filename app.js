@@ -126,6 +126,35 @@ registerForm.addEventListener("submit", (e) => {
     (terms && "Must accept the Term of conditions") ||
     (password !== repeatPassword && "Password must match!");
 
-    // check the entered data and display errors if needed
-  
+  // check the entered data and display errors if needed
+  if (handleErr) {
+    switch (handleErr) {
+      case userNameValidation(registrationForm.username.value):
+        displayErr(handleErr, registerForm.username);
+        break;
+      case emailValidation(registerForm.email.value):
+        displayErr(handleErr, registerForm.email);
+        break;
+      case passwordValidation(registerForm.password.value):
+        displayErr(handleErr, registerForm.password);
+        break;
+      default:
+        displayErr(handleErr, registerForm.terms);
+    }
+    return;
+  }
+
+  // local storage
+  // check and set the data to local storage.
+  const users = JSON.parse(localStorage.getItem("users") || []);
+  users.push({
+    username: username.toLowerCase(),
+    email: email.toLowerCase(),
+    password: password,
+  });
+  localStorage.setItem("users", JSON.stringify(users));
+
+  // clear the form and show success MSG to user
+  clearInputsField(registerForm);
+  displaySuccess("Your registration was Successful!");
 });
