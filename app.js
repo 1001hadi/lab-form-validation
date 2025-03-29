@@ -9,6 +9,7 @@ const showErr = document.getElementById("errorDisplay");
 function displayErr(errMsg, inputEl) {
   showErr.textContent = errMsg;
   showErr.style.color = "red";
+  showErr.style.display = "block";
   inputEl.focus();
 }
 
@@ -16,12 +17,13 @@ function displayErr(errMsg, inputEl) {
 function displaySuccess(successMsg) {
   showErr.textContent = successMsg;
   showErr.style.color = "green";
+  showErr.style.display = "block";
 }
 
 // Clearing inputs field helper
 function clearInputsField(form) {
   form.reset();
-  showErr.style.color = "red";
+  showErr.textContent = "";
   showErr.style.display = "none";
 }
 
@@ -44,17 +46,20 @@ function userNameValidation(username) {
   }
 
   //check the local storage for existed username.
-  const users = JSON.parse(localStorage.getItem("users") || []);
-  let existUsername = false;
-  for (let user of users) {
-    if (user.username === username.toLowerCase()) {
-      existUsername = true;
-      break;
-    }
+  const users = JSON.parse(localStorage.getItem("users") || "[]");
+  if (users.some((user) => user.username === username.toLowerCase())) {
+    return "That username is already taken.";
   }
-  if (existUsername) {
-    return "Username you choice already existed!";
-  }
+  // let existUsername = false;
+  // for (let user of users) {
+  //   if (user.username === username.toLowerCase()) {
+  //     existUsername = true;
+  //     break;
+  //   }
+  // }
+  // if (existUsername) {
+  //   return "Username you choice already existed!";
+  // }
 
   return;
 }
@@ -65,11 +70,11 @@ function emailValidation(email) {
   if (!email) {
     return "Enter you email! ";
   }
-  if (email.toLowerCase().endWith("example.com")) {
-    return "Enter valid email address!";
-  }
   if (!emailRegex.test(email)) {
     return "Enter valid Email!";
+  }
+  if (email.toLowerCase().endsWith("example.com")) {
+    return "Enter valid email address!";
   }
 
   return;
@@ -93,7 +98,7 @@ function passwordValidation(password, username) {
     return "Must include 1 special character";
   }
   if (password.toLowerCase().includes("password")) {
-    return "Choice better password!";
+    return "Choice  better password!";
   }
   if (password.includes(username)) {
     return "Password can't match the username!";
@@ -111,42 +116,34 @@ function passwordValidation(password, username) {
 // make sure store the data in local storage after validating them
 
 registerForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+
   let username = registerForm.username.value;
   let email = registerForm.email.value;
   let password = registerForm.password.value;
   let repeatPassword = registerForm.passwordCheck.value;
   let termOfCondition = registerForm.terms.value;
 
-  console.log(username);
+  const usernameErr = userNameValidation(username);
+  const emailErr = emailValidation(email);
+  const passwordErr = passwordValidation(password, username);
+  const termsErr = !termOfCondition && "Must accept the terms and conditions";
+  const repeatPasswordErr =
+    password !== repeatPassword && "Passwords must match!";
 
-  let handleErr =
-    userNameValidation(username) ||
-    emailValidation(email) ||
-    passwordValidation(password) ||
-    (terms && "Must accept the Term of conditions") ||
-    (password !== repeatPassword && "Password must match!");
-
-  // check the entered data and display errors if needed
-  if (handleErr) {
-    switch (handleErr) {
-      case userNameValidation(registrationForm.username.value):
-        displayErr(handleErr, registerForm.username);
-        break;
-      case emailValidation(registerForm.email.value):
-        displayErr(handleErr, registerForm.email);
-        break;
-      case passwordValidation(registerForm.password.value):
-        displayErr(handleErr, registerForm.password);
-        break;
-      default:
-        displayErr(handleErr, registerForm.terms);
-    }
+  if (usernameErr || emailErr || passwordErr || termsErr || repeatPasswordErr) {
+    if (usernameErr) displayErr(usernameErr, registerForm.username);
+    else if (emailErr) displayErr(emailErr, registerForm.email);
+    else if (passwordErr) displayErr(passwordErr, registerForm.password);
+    else if (termsErr) displayErr(termsErr, registerForm.terms);
+    else if (repeatPasswordErr)
+      displayErr(repeatPasswordErr, registerForm.passwordCheck);
     return;
   }
 
   // local storage
   // check and set the data to local storage.
-  const users = JSON.parse(localStorage.getItem("users") || []);
+  const users = JSON.parse(localStorage.getItem("users") || "[]");
   users.push({
     username: username.toLowerCase(),
     email: email.toLowerCase(),
@@ -158,3 +155,6 @@ registerForm.addEventListener("submit", (e) => {
   clearInputsField(registerForm);
   displaySuccess("Your registration was Successful!");
 });
+
+///////////////////////////
+///// login form--------->
