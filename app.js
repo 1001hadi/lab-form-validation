@@ -26,7 +26,7 @@ function clearInputsField(form) {
 }
 
 // username validating helper
-// add data to local storage
+// check the local storage if username is already in use
 // same of the methods comes from stack Overflow and same researches
 function userNameValidation(username) {
   if (!username) {
@@ -35,6 +35,7 @@ function userNameValidation(username) {
   if (username.length < 4) {
     return "Username must be 4 or more character!";
   }
+
   if (new Set(username).size < 2) {
     return "Username cannot have special characters or space!";
   }
@@ -42,7 +43,7 @@ function userNameValidation(username) {
     return "Username can not have a special characters";
   }
 
-  return null;
+  return;
 }
 
 // email validating helper
@@ -58,10 +59,34 @@ function emailValidation(email) {
     return "Enter valid Email!";
   }
 
-  return null;
+  return;
 }
 
 // password validating helper
+function passwordValidation(password, username) {
+  if (!password) {
+    return "Enter the correct password";
+  }
+  if (password.length < 12) {
+    return "password must be 12 characters long!";
+  }
+  if (!/[a-z]/.test(password) || !/[A_Z]/.test(password)) {
+    return "You must include 1 Uppercase and at least 1 lowerCase character!";
+  }
+  if (!/[\d]/.test(password)) {
+    return "you must include 1 number";
+  }
+  if (!/[^a-zA-Z0-9]/.test(password)) {
+    return "Must include 1 special character";
+  }
+  if (password.toLowerCase().includes("password")) {
+    return "Choice better password!";
+  }
+  if (password.includes(username)) {
+    return "Password can't match the username!";
+  }
+  return;
+}
 
 // add eventListener to the registration and start validating
 // get the username, email, password and term of condition values in the variables
