@@ -26,7 +26,8 @@ function clearInputsField(form) {
 }
 
 // username validating helper
-// set method and test method comes from stack Overflow and same researches
+// add data to local storage
+// same of the methods comes from stack Overflow and same researches
 function userNameValidation(username) {
   if (!username) {
     return "Enter username!";
@@ -40,9 +41,25 @@ function userNameValidation(username) {
   if (/[^a-zA-Z0-9]/.test(username)) {
     return "Username can not have a special characters";
   }
+
+  return null;
 }
 
 // email validating helper
+function emailValidation(email) {
+  let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!email) {
+    return "Enter you email! ";
+  }
+  if (email.toLowerCase().endWith("example.com")) {
+    return "Enter valid email address!";
+  }
+  if (!emailRegex.test(email)) {
+    return "Enter valid Email!";
+  }
+
+  return null;
+}
 
 // password validating helper
 
