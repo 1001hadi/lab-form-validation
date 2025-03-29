@@ -43,6 +43,19 @@ function userNameValidation(username) {
     return "Username can not have a special characters";
   }
 
+  //check the local storage for existed username.
+  const users = JSON.parse(localStorage.getItem("users") || []);
+  let existUsername = false;
+  for (let user of users) {
+    if (user.username === username.toLowerCase()) {
+      existUsername = true;
+      break;
+    }
+  }
+  if (existUsername) {
+    return "Username you choice already existed!";
+  }
+
   return;
 }
 
@@ -90,8 +103,29 @@ function passwordValidation(password, username) {
 
 // add eventListener to the registration and start validating
 // get the username, email, password and term of condition values in the variables
+// create error handling variable and set all function to it and check the errors
 // start with user validation
 // then email validation
 // then password validation
 // term of condition validation
 // make sure store the data in local storage after validating them
+
+registerForm.addEventListener("submit", (e) => {
+  let username = registerForm.username.value;
+  let email = registerForm.email.value;
+  let password = registerForm.password.value;
+  let repeatPassword = registerForm.passwordCheck.value;
+  let termOfCondition = registerForm.terms.value;
+
+  console.log(username);
+
+  let handleErr =
+    userNameValidation(username) ||
+    emailValidation(email) ||
+    passwordValidation(password) ||
+    (terms && "Must accept the Term of conditions") ||
+    (password !== repeatPassword && "Password must match!");
+
+    // check the entered data and display errors if needed
+  
+});
