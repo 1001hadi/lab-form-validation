@@ -6,9 +6,10 @@ const showErr = document.getElementById("errorDisplay");
 // create helper functions to displaying errors, success and clear data
 
 // display Error helper
-function displayErr(errMsg) {
+function displayErr(errMsg, inputEl) {
   showErr.textContent = errMsg;
   showErr.style.color = "red";
+  inputEl.focus();
 }
 
 // display success helper
@@ -18,17 +19,32 @@ function displaySuccess(successMsg) {
 }
 
 // Clearing inputs field helper
-// this part build with hint from stack Overflow;
 function clearInputsField(form) {
-  form.querySelectorAll("input").forEach((input) => {
-    input.value = "";
-    //   onfocus = "this.value= ''";
-  });
-
-  form.querySelectorAll(`input[type="checkbox"]`).forEach((checkBox) => {
-    checkBox.checked = false;
-  });
+  form.reset();
+  showErr.style.color = "red";
+  showErr.style.display = "none";
 }
+
+// username validating helper
+// set method and test method comes from stack Overflow and same researches
+function userNameValidation(username) {
+  if (!username) {
+    return "Enter username!";
+  }
+  if (username.length < 4) {
+    return "Username must be 4 or more character!";
+  }
+  if (new Set(username).size < 2) {
+    return "Username cannot have special characters or space!";
+  }
+  if (/[^a-zA-Z0-9]/.test(username)) {
+    return "Username can not have a special characters";
+  }
+}
+
+// email validating helper
+
+// password validating helper
 
 // add eventListener to the registration and start validating
 // get the username, email, password and term of condition values in the variables
