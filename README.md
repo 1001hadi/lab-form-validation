@@ -1,6 +1,6 @@
 # Form Validating Project (LAB).
 
-### This project write with pure javaScript to make sure user entered the correct info into the form before submit it.
+## This project write with pure javaScript to make sure user entered the correct info into the form before submit it.
 
 ### HTML and CSS code of this project was provided with sandBox.
 
