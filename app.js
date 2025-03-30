@@ -194,7 +194,7 @@ logForm.addEventListener("submit", (e) => {
     return;
   }
 
-  const user = JSON.parse(localStorage.getItem("users") || "[]");
+  const users = JSON.parse(localStorage.getItem("users") || "[]");
   let getUser;
 
   for (let matchUser of users) {
