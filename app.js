@@ -122,6 +122,7 @@ registerForm.addEventListener("submit", (e) => {
   let repeatPassword = registerForm.passwordCheck.value;
   let termOfCondition = registerForm.terms.value;
 
+  // create error vars for each validation.
   const usernameErr = userNameValidation(username);
   const emailErr = emailValidation(email);
   const passwordErr = passwordValidation(password, username);
@@ -129,6 +130,7 @@ registerForm.addEventListener("submit", (e) => {
   const repeatPasswordErr =
     password !== repeatPassword && "Passwords must match!";
 
+  // to convert if and else statement i got hing from stack overflow, specially the (!!) operator
   if (usernameErr || emailErr || passwordErr || termsErr || repeatPasswordErr) {
     switch (true) {
       case !!usernameErr:
@@ -167,3 +169,14 @@ registerForm.addEventListener("submit", (e) => {
 
 ///////////////////////////
 ///// login form--------->
+
+// assign event listener to login form
+// first prevent Default
+// make sure assign the input values to variables
+// check if user enter username and the password
+// check if there is no match in local storage or incorrect password display error msg
+// if there is match in local storage display success msg
+
+logForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+});
