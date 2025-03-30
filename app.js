@@ -130,7 +130,7 @@ registerForm.addEventListener("submit", (e) => {
   const repeatPasswordErr =
     password !== repeatPassword && "Passwords must match!";
 
-  // to convert if and else statement i got hing from stack overflow, specially the (!!) operator
+  // i convert if and else statement. to accomplish this part, i got hing from stack overflow, specially the (!!) operator
   if (usernameErr || emailErr || passwordErr || termsErr || repeatPasswordErr) {
     switch (true) {
       case !!usernameErr:
@@ -206,4 +206,16 @@ logForm.addEventListener("submit", (e) => {
       break;
     }
   }
+
+  if (!getUser) {
+    displayErr("User or Password NOT MATCH!", logForm.username);
+    return;
+  }
+
+  clearInputsField(logForm);
+  displaySuccess(
+    `You Successfully Logged In! ${
+      persist ? "Keep me logged in is checked" : ""
+    }, `
+  );
 });
