@@ -179,4 +179,31 @@ registerForm.addEventListener("submit", (e) => {
 
 logForm.addEventListener("submit", (e) => {
   e.preventDefault();
+
+  let username = logForm.username.value;
+  let password = logForm.password.value;
+  let persist = logForm.persist.checked;
+
+  if (!username) {
+    displayErr("Enter the username!", logForm.user);
+    return;
+  }
+
+  if (!password) {
+    displayErr("Enter the correct password!", logForm.password);
+    return;
+  }
+
+  const user = JSON.parse(localStorage.getItem("users") || "[]");
+  let getUser;
+
+  for (let matchUser of users) {
+    if (
+      matchUser.username === username.toLowerCase() &&
+      matchUser.password === password
+    ) {
+      getUser = matchUser;
+      break;
+    }
+  }
 });
