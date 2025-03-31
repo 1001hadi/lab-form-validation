@@ -19,3 +19,11 @@
 ### REGEX code and validating password in correct way.
 
 ### Changing the if and else to Switch statement specially with the !! operator.
+
+
+# App Screen Shot:
+### register
+![Image](https://github.com/user-attachments/assets/9972bb64-31d5-412a-8589-927e37b69070)
+
+### Login
+![Image](https://github.com/user-attachments/assets/fa2b9be3-f06c-425c-9bea-f08d7489e38d)
